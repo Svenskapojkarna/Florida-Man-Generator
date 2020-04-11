@@ -1,4 +1,4 @@
-from db import db, Articles, Users, AddedArticles
+from db.db import db, Articles, Users, AddedArticles
 from datetime import datetime
 
 db.create_all()

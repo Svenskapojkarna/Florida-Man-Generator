@@ -1,29 +1,19 @@
 ##Based on the resource_test.py on lovelace "Testing Flask Applications part 2
-
+from datetime import datetime
 import json
+#from jsonschema import validate
 import os
 import pytest
+#import time
 import tempfile
-import time
 
-from datetime import datetime
-from jsonschema import validate
-from sqlalchemy.engine import Engine
 from sqlalchemy import event
-from sqlalchemy.exc import IntegrityError, StatementError
+from sqlalchemy.engine import Engine
+#from sqlalchemy.exc import IntegrityError, StatementError
 
 #import app and db-builder
 from app import app
 from db.db import db, Articles, Users, AddedArticles
-
-##imports that are in app.py
-from flask import Flask, redirect
-from flask_restful import Api
-from flask_sqlalchemy import SQLAlchemy
-from src.resources.entrypoint import EntryPoint
-from src.resources.articleresource import ArticleCollection, ArticleItem
-from src.resources.userresource import UserCollection, UserItem
-from src.resources.addedarticleresource import AddedArticleCollection, AddedArticleItem
 
 ## forgot what this was for?
 @event.listens_for(Engine, "connect")

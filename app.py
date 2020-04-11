@@ -4,10 +4,11 @@
 from flask import Flask, redirect
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
-from src.resources.entrypoint import EntryPoint
-from src.resources.articleresource import ArticleCollection, ArticleItem
-from src.resources.userresource import UserCollection, UserItem
+
 from src.resources.addedarticleresource import AddedArticleCollection, AddedArticleItem
+from src.resources.articleresource import ArticleCollection, ArticleItem
+from src.resources.entrypoint import EntryPoint
+from src.resources.userresource import UserCollection, UserItem
 
 ## Set constants
 APIARY_URL = "https://floridamangenerator.docs.apiary.io/#reference/"

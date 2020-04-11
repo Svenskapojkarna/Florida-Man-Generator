@@ -169,7 +169,8 @@ Comment "borrowed" lines in to the codes...
 
 ### Action points
 *List here the actions points discussed with assistants*
-
+Change url hard coding to url_for()
+Build more tests, check coverage.
 
 ### Comments from staff
 *ONLY USED BY COURSE STAFF: Additional comments from the course staff*
