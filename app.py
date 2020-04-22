@@ -4,6 +4,7 @@
 from flask import Flask, redirect
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 from src.resources.addedarticleresource import AddedArticleCollection, AddedArticleItem
 from src.resources.articleresource import ArticleCollection, ArticleItem
@@ -20,6 +21,7 @@ api = Api(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + DATABASE_PATH
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
+CORS(app)
 
 ## Set resources
 api.add_resource(EntryPoint, "/api/")
