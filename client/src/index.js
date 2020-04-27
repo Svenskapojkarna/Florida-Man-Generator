@@ -5,14 +5,12 @@ import * as serviceWorker from './components/serviceWorker';
 import App from './pages/App.jsx';
 import CheckInitialMemes from './pages/CheckInitialMemes'
 
-const api = "http://127.0.0.1:5000/api/"
-
 function AppWrapper(){
   return <App />
 }
 
 function CheckInitialMemesWrapper(){
-  return <CheckInitialMemes api={api}/>
+  return <CheckInitialMemes />
 }
 
 function render(){
