@@ -2,8 +2,12 @@ import React from 'react';
 import {withRouter} from 'react-router-dom'
 
 class App extends React.Component {
-  checkMemesHandle = (event) => {
+  checkMemesHandle = event => {
     this.props.history.push('/articles')
+  }
+
+  checkUserMemesHandle = event => {
+    this.props.history.push('/myarticles')
   }
 
   render(){
@@ -14,7 +18,7 @@ class App extends React.Component {
           <p>What do you want to do today?</p>
           <button onClick={this.checkMemesHandle}>Check a meme</button>
           <button>Create a meme</button>
-          <button>My memes</button>
+          <button onClick={this.checkUserMemesHandle}>My memes</button>
         </center>
       </div>
     )
