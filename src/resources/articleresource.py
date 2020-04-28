@@ -7,7 +7,7 @@ from jsonschema import validate, ValidationError
 from sqlalchemy.exc import IntegrityError
 from src.builders.articlebuilder import ArticleBuilder
 from src.builders.masonbuilder import MasonBuilder
-from db.db import Articles
+from db.db import db, Articles
 
 ## Set constants
 LINK_RELATIONS_URL = "/floridaman/link-relations/"

@@ -8,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 from src.builders.addedarticlebuilder import AddedArticleBuilder
 from src.builders.masonbuilder import MasonBuilder
-from db.db import AddedArticles
+from db.db import db, AddedArticles
 
 ## Set constants
 LINK_RELATIONS_URL = "/floridaman/link-relations/"
