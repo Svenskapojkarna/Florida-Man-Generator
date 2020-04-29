@@ -3,12 +3,14 @@
 ## Import required libraries and classes from modules
 from flask import request, json, Response, Flask
 from flask_restful import Api, Resource
+from flask_cors import CORS
 from jsonschema import validate, ValidationError
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 from src.builders.addedarticlebuilder import AddedArticleBuilder
 from src.builders.masonbuilder import MasonBuilder
 from db.db import db, AddedArticles
+from datetime import datetime
 
 ## Set constants
 LINK_RELATIONS_URL = "/floridaman/link-relations/"
@@ -17,6 +19,7 @@ MASON = "application/vnd.mason+json"
 ## Initialize the resource
 app = Flask(__name__)
 api = Api(app)
+CORS(app)
 
 ## Added Article collection
 class AddedArticleCollection(Resource):
@@ -61,11 +64,12 @@ class AddedArticleCollection(Resource):
         article = AddedArticles(
             link = request.json["link"],
             headline = request.json["headline"],
+            modtime = datetime.now(),
             owner_username = request.json["owner_username"]
         )
         db.session.add(article)
         db.session.commit()
-        article = AddedArticles.query.filter_by(date=request.json["date"])
+        article = AddedArticles.query.filter_by(headline=request.json["headline"]).first()
         return Response(status=201, headers={
             "Location": api.url_for(AddedArticleItem, id=article.id)
         })
