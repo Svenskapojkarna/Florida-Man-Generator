@@ -3,6 +3,7 @@
 ## Import required libraries and classes from modules
 from flask import Flask, json, Response
 from flask_restful import Api, Resource
+from flask_cors import CORS
 from src.builders.masonbuilder import MasonBuilder
 from src.resources.articleresource import ArticleCollection
 from src.resources.userresource import UserCollection
@@ -15,6 +16,7 @@ MASON = "application/vnd.mason+json"
 ## Initialize the resource
 app = Flask(__name__)
 api = Api(app)
+CORS(app)
 
 class EntryPoint(Resource):
 

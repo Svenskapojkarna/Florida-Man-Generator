@@ -1,6 +1,7 @@
 import React from 'react'
 import AddedArticle from '../components/AddedArticle'
 import API from '../components/api'
+import {withRouter} from 'react-router-dom'
 
 class CheckUserMemes extends React.Component {
     constructor(props) {
@@ -10,7 +11,10 @@ class CheckUserMemes extends React.Component {
             articles: [],
             usersURL: '',
             allArticlesURL: '',
-            isAuthor: false
+            isAuthor: false,
+            create: false,
+            newHeadline: null,
+            newLink: ''
         }
     }
 
@@ -46,7 +50,7 @@ class CheckUserMemes extends React.Component {
             } else {
                 this.setState({
                     isAuthor: true,
-                    articles: otherResponse.data["items"]
+                    articles: otherResponse.data["items"],
                 })
             }
         }
@@ -63,12 +67,6 @@ class CheckUserMemes extends React.Component {
 
     updateList = async user => {
         const response = await API.get(this.state.usersURL + user + '/')
-            .catch(error => {
-                this.setState({
-                    articles: []
-                })
-                console.log(error)
-            })
         this.setState({
             articles: response.data["items"]
         })
@@ -80,7 +78,81 @@ class CheckUserMemes extends React.Component {
         this.updateList(user)
     }
 
+    backButton = event => {
+        event.preventDefault()
+        this.props.history.push('/')
+    }
+
+    editArticle = async (data, id) => {
+        // eslint-disable-next-line
+        const response = await API.put((this.state.allArticlesURL + id + '/'), data)
+            .catch(error => {
+                alert('Error occured while editing article\n' + error)
+            })
+        this.updateList(data["owner_username"])
+    }
+
+    createArticle = async () => {
+        let failed = false
+        this.setState({
+            create: false
+        })
+        const data = {
+            headline: this.state.newHeadline,
+            link: this.state.newLink,
+            owner_username: this.state.author
+        }
+        // eslint-disable-next-line
+        const response = await API.post(this.state.allArticlesURL, data)
+            .catch(error => {
+                alert('Error occured when creating new article\n' + error)
+                failed = true
+            })
+        if(!failed){
+            alert('New article created succesfully')
+        }
+    }
+
+    renderCreateArticle = event => {
+        event.preventDefault()
+        this.setState({
+            create: true
+        })
+    }
+
+    changeHeadline = event => {
+        event.preventDefault()
+        if (event.target.value === '') {
+            this.setState({
+                newHeadline: null
+            })
+        } else {
+            this.setState({
+                newHeadline: event.target.value
+            })
+        }
+    }
+
+    changeLink = event => {
+        event.preventDefault()
+        this.setState({
+            newLink: event.target.value
+        })
+    }
+
     render() {
+        const newArticle = (
+            <div>
+                <form onSubmit={event => event.preventDefault()}>
+                    <label>Headline: </label>
+                    <input type='text' onChange={this.changeHeadline}/>
+                    <label>Link: </label>
+                    <input type='text' onChange={this.changeLink}/>
+                    <br />
+                    <button onClick={this.createArticle}>Create</button>
+                </form>
+            </div>
+        )
         return(
             <div>
                 <center>
@@ -90,6 +162,7 @@ class CheckUserMemes extends React.Component {
                     <br />
                     <button onClick={this.findArticles}>Find articles</button>
                     <button onClick={this.findAllArticles}>See all user created articles</button>
+                    <button onClick={this.backButton}>Back</button>
                     {this.state.articles ? this.state.articles.map((article, index) => {
                         return <AddedArticle key={index}
                                         creator={article["owner_username"]}
@@ -97,12 +170,15 @@ class CheckUserMemes extends React.Component {
                                         link={article["link"] ? article["link"] : 'No Link'}
                                         id={article["id"]}
                                         delete={this.deleteArticle}
+                                        edit={this.editArticle}
                                         author={this.state.isAuthor}/>
                     }) : ''}
+                    {this.state.isAuthor ? <button onClick={this.renderCreateArticle}>Create new Article for this user</button> : ''}
+                    {this.state.create ? newArticle : ''}
                 </center>
             </div>
         )
     }
 }
 
-export default CheckUserMemes
+export default withRouter(CheckUserMemes)

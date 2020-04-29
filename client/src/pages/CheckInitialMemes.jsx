@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import Article from '../components/Article'
 import API from '../components/api'
+import {withRouter} from 'react-router-dom'
 
 class CheckInitialMemes extends React.Component{
     constructor(props){
@@ -71,6 +72,11 @@ class CheckInitialMemes extends React.Component{
         })
     }
 
+    backButton = event => {
+        event.preventDefault()
+        this.props.history.push('/')
+    }
+
     render(){
         return(
             <div>
@@ -82,6 +88,7 @@ class CheckInitialMemes extends React.Component{
                     <br />
                     <button onClick={this.seeMemeHandler}>See Article</button>
                     <button onClick={this.showAllArticles}>See all Articles</button>
+                    <button onClick={this.backButton}>Back</button>
                     {this.state.articles.map((article, index) => {
                         return <Article key={index}
                                         date={article["date"]}
@@ -94,4 +101,4 @@ class CheckInitialMemes extends React.Component{
     }
 }
 
-export default CheckInitialMemes
+export default withRouter(CheckInitialMemes)

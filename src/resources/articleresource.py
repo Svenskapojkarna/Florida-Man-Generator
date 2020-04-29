@@ -3,6 +3,7 @@
 ## Import required libraries and classes from modules
 from flask import request, json, Response, Flask
 from flask_restful import Api, Resource
+from flask_cors import CORS
 from jsonschema import validate, ValidationError
 from sqlalchemy.exc import IntegrityError
 from src.builders.articlebuilder import ArticleBuilder
@@ -16,6 +17,7 @@ MASON = "application/vnd.mason+json"
 ## Initialize the resource
 app = Flask(__name__)
 api = Api(app)
+CORS(app)
 
 ## Article collection
 class ArticleCollection(Resource):

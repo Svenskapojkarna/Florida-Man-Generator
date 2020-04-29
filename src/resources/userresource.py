@@ -5,6 +5,7 @@ from flask import request, json, Response, Flask
 from flask_restful import Api, Resource
 from jsonschema import validate, ValidationError
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 from sqlalchemy.exc import IntegrityError
 from src.builders.userbuilder import UserBuilder
 from src.builders.masonbuilder import MasonBuilder
@@ -14,6 +15,7 @@ from db.db import Users, db
 ## Initialize the resource
 app = Flask(__name__)
 api = Api(app)
+CORS(app)
 
 ## Set constants
 LINK_RELATIONS_URL = "/floridaman/link-relations/"
