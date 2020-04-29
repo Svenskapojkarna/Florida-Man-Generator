@@ -26,6 +26,7 @@ class UserBuilder(MasonBuilder):
         }
         props = schema["properties"] = {}
         props["username"] = {
+            "name": "username",
             "type": "string"
         }
         return schema
