@@ -26,12 +26,15 @@ class AddedArticleBuilder(MasonBuilder):
         }
         props = schema["properties"] = {}
         props["link"] = {
+            'name': 'link',
             "type": "string"
         }
         props["headline"] = {
+            'name': 'headline',
             "type": "string"
         }
         props["owner_username"] = {
+            'name': 'owner_username',
             "type": "string"
         }
         return schema
