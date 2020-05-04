@@ -69,7 +69,13 @@ class CreateNewArticle extends React.Component {
         // eslint-disable-next-line
         const response2 = await API.post(this.state.usersURL, userData)
             .catch(error => {
-                alert('An error occured while posting article\n' + error)
+                if(error.response["status"] === 400) {
+                    alert('Username and headline cannot be empty')
+                } else if(error.response["status"] === 409){
+                    alert('Username is already in use.\nIf you want to create a new article for this user, go to My Memes section from main page.')
+                 } else {
+                    alert('An error occured while posting article\n' + error)
+                }
                 userPostFailed = true
             })
         if(!userPostFailed){
@@ -83,7 +89,11 @@ class CreateNewArticle extends React.Component {
             // eslint-disable-next-line
             const response4 = await API.post(this.state.articlesURL, articleData)
                 .catch(error => {
-                    alert('An error occured while posting article\n' + error)
+                    if(error.response["status"] === 400) {
+                        alert('Username and headline cannot be empty')
+                    } else {
+                        alert('An error occured while posting article\n' + error)
+                    }
                     articlePostFailed = true
                 })
             if(articlePostFailed){

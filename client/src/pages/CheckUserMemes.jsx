@@ -40,7 +40,7 @@ class CheckUserMemes extends React.Component {
         let failed = false
         const response = await API.get(this.state.usersURL + this.state.author + '/')
             .catch(error => {
-                alert("No articles found by given user :(\n" + error)
+                alert("No articles found by given user :(")
                 failed = true
             })
         if (!failed) {
@@ -87,7 +87,11 @@ class CheckUserMemes extends React.Component {
         // eslint-disable-next-line
         const response = await API.put((this.state.allArticlesURL + id + '/'), data)
             .catch(error => {
-                alert('Error occured while editing article\n' + error)
+                if (error.response["status"] === 400){
+                    alert('Headline cannot be empty')
+                } else {
+                    alert('Error occured while editing article\n' + error)
+                }
             })
         this.updateList(data["owner_username"])
     }
@@ -105,7 +109,11 @@ class CheckUserMemes extends React.Component {
         // eslint-disable-next-line
         const response = await API.post(this.state.allArticlesURL, data)
             .catch(error => {
-                alert('Error occured when creating new article\n' + error)
+                if (error.response["status"] === 400){
+                    alert('Headline cannot be empty!')
+                } else {
+                    alert('Error occured when creating new article\n' + error)
+                }
                 failed = true
             })
         if(!failed){
@@ -144,9 +152,9 @@ class CheckUserMemes extends React.Component {
         const newArticle = (
             <div>
                 <form onSubmit={event => event.preventDefault()}>
-                    <label>Headline: </label>
+                    <label><strong>HEADLINE: </strong></label>
                     <input type='text' onChange={this.changeHeadline}/>
-                    <label>Link: </label>
+                    <label><strong>LINK: </strong></label>
                     <input type='text' onChange={this.changeLink}/>
                     <br />
                     <button onClick={this.createArticle}>Create</button>
