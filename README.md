@@ -9,6 +9,7 @@ __Remember to include all required documentation and HOWTOs, including how to cr
 # Overview of the API
 ## Structure
 ### (root)
+
 LICENSE = License of the project<br>
 README.md. = THIS readmefile.<br>
 api_test.py = Test file for api-method testing.<br>
@@ -17,23 +18,45 @@ app.py =  Main function(?).<br>
 db_test.py = Test file for database testing.<br>
 meetings.md = File containing meeting notes.<br>
 requirements.txt = Requirements file for installation.<br>
+
 ### db <Database>
+
 db_test.py = Unit tests for the database.<br>
 db.py = Database models.<br>
 populate.py = Populate the database with initial values.<br>
 README.md = Instructions on how to use the database.<br>
 test.db = Populated database with initial values.
+
 ### src <Source Code>
 #### builders <Builders for all resources>
+
 addedarticlebuilder.py = Builder for added article resource.<br>
 articlebuilder.py = Builder for article resource.<br>
 masonbuilder.py = Builder to create resources. Used in other builders as dependency.<br>
 userbuilder.py = Builder for user resource.
+
 #### Resources <The actual resources of the API>
+
 addedarticleresource.py = Resource for added article collection and item.<br>
 articleresource.py = Resource for article collection and item.<br>
 entrypoint.py = Application entrypoint.<br>
 userresource.py = Resource for user collection and item.
+
+### Client/src <Source code for API client>
+#### components
+
+AddedArticle.jsx = One added article component.<br>
+api.js = Global configuration of API<br>
+Article.jsx = One initial article component<br>
+serviceWorker.js = Needed for React application
+
+#### pages
+
+App.jsx = Landing page.<br>
+CheckInitialMemes.jsx = Page to search for the initial memes.<br>
+CheckUserMemes.jsx = Page to search, edit and delete user created articles. User can also create a new article for himself.<br>
+CreateNewArticle.jsx = Page to create a new user and a new article.
+
 ## Usage
 ### Installing dependencies
 0. (Install virtualenv)
